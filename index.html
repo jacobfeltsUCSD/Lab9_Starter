@@ -102,6 +102,83 @@
 
     // Start your code here
     // You may move this JS to another file if you wish
+
+    // Step 4
+    class calculatorError extends Error {
+      constructor(message) {
+        super(message);
+        this.name = 'CalculatorError';
+    }}
+
+    // Step 2
+    errorBtns.forEach((btn, i) => {
+      btn.addEventListener('click', () => {
+        switch (i) {
+          case 0: // Console Log
+            console.log('Console Log demo');
+            break;
+          case 1: // Console Error
+            console.error('Console Error demo');
+            break;
+          case 2: // Console Count
+            console.count(`Console Count`);
+            break;
+          case 3: // Console Warn
+            console.warn('Console Warn demo');
+            break;
+          case 4: // Console Assert
+            console.assert(2 == 3, '2 is not equal to 3');
+            break;
+          case 5: // Console Clear
+            console.clear();
+            break;
+          case 6: // Console Dir
+            console.dir(btn);
+            break;
+          case 7: // Console Dirxml
+            console.dirxml(btn);
+            break;
+          case 8: // Console Group Start
+            console.group('Console Group');
+            break;
+          case 9: // Console Group End
+            console.groupEnd();
+            break;
+          case 10: // Console Table
+            console.table([['yes', 'this'], ['is a', 'table']]);
+            break;
+          case 11: // Console Timer Start
+            console.time('timer');
+            break;
+          case 12: // Console Timer End
+            console.timeEnd('timer');
+            break;
+          case 13: // Console Trace
+            console.trace();
+            break;
+          case 14: // Cause Global Error
+            throw new Error('Global Error demo');
+            break;
+    } }); });
+
+    // Step 3
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      let output = document.querySelector('output');
+      let firstNum = document.querySelector('#first-num').value;
+      let secondNum = document.querySelector('#second-num').value;
+      let operator = document.querySelector('#operator').value;
+    try {
+      if (operator === '/' && secondNum === '0') {
+        throw new calculatorError('Attempts were made to Divide by 0');
+      }
+      let result = eval(`${firstNum} ${operator} ${secondNum}`);
+      output.innerHTML = result;
+    } catch (error) {
+      if(error instanceof calculatorError) { console.error(`${error.name}: ${error.message}`); } 
+      else { console.error(error); }
+      output.innerHTML = '';
+    } finally { console.log('Error Calculator Done'); }});
   </script>
 </body>
 
